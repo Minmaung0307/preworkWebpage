@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="PannaCollege">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <title>CLI</title>
+  </head>
+  <body>
+    <!-- navigation tags - block level element -->
+    <header>
+      <h1>
+        <a href="/">Command Line Interface (CLI)</a>
+      </h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="./index.html">Home</a>
+          </li>
+          <li>
+            <a href="./git-github.html">Git-GitHub</a>
+          </li>
+          <li>
+            <a href="./cli.html">CLI</a>
+          </li>
+          <li>
+            <a href="#">Markdown</a>
+          </li>
+          <li>
+            <a href="#">Apps</a>
+          </li>
+          <li>
+            <a href="#">Reach Out</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- end navigation -->
+
+    <section class="intro">
+      <div class="flex-row">
+        <h2 class="section-title primary-border">
+          Git Installation
+        </h2>
+      </div>
+      <section>
+        <h3>0. Create GitHub Account</h3>
+        <ul>
+          <li>navigate to https://github.com/ and follow the prompts</li>
+          <li>You can choose GitHub Free (recommended) or GitHub Pro</li>
+          <li>Verify your email address after signing up for a new account</li>
+          <li>Configuring two-factor authentication</li>
+          <li>Viewing your GitHub profile and contribution graph</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>1. Generate SSH Key and Add it to GitHub</h3>
+          <p>
+            Open Terminal<br>
+            <code>ssh-keygen -t ed25519 -C "your_email@example.com"</code><br>
+            <b>Note: </b>If you are using a legacy system that doesn't support the Ed25519 algorithm, use:<br>
+            <code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code>
+          </p><br>
+          <details>
+            <summary>Deep Dive</summary>
+            <p>
+              Check if there is .ssh<br>
+              <code>open ./.ssh</code><br>
+              If not, generate a new one as mentioned above<br>
+              if yes, but old one, then remove it and create one again<br>
+              <code>rm -r .ssh</code><br>
+              <code>cd .ssh</code>
+              <code>code .&emsp;</code> or <code>&emsp;open .ssh</code><br>
+              Copy the id_rsa.pub key<br>
+              Go to GitHub account settings and click SSH and GPG keys<br>
+              Click New SSH Key<br>
+              Give a desirable name to title<br>
+              And paste the copied SSH key to key area<br>
+              Click Add SSH Key<br>
+              Done!
+            </p>
+          </details>
+      </section>
+
+      <section>
+        <h3>2. Configure Local Git Default Branch to main</h3>
+        <p>
+          <code>git --version</code><br>
+          <code>brew install git</code> [Mac]<br>
+          <code>sudo apt install git</code> [Linux]<br>
+          <code>brew upgrade git</code> [Mac]<br>
+          <code>sudo apt upgrade git</code> [Linux]<br>
+          <code>git --version</code><br>
+          <code>git config --global init.defaultBranch main</code><br>
+          <code>git config --global user.name "your_name"</code><br>
+          <code>git config --global user.email "your_email"</code>
+        </p>
+        <p>
+          Windows users can visit the Downloading Git website <a href="https://git-scm.com/download/win">Git for Windows</a>
+        </p><br>
+        <details>
+          <summary>Deep Dive</summary>
+          <p>
+            Check if there is user.name and user.email<br>
+            <code>git config user.name</code><br>
+            <code>git config user.email</code><br>
+            <code>git config --list</code><br>
+            To Remove the user.name and user.email from global git config;<br>
+            <code>git config --global --unset-all user.name</code><br>
+            <code>git config --global --unset-all user.email</code>
+          </p>
+        </details>
+      </section>
+
+      <section>
+        <h3>3. Initialize a Local Repository</h3>
+          <p>
+            <code>mkdir sample</code><br>
+            <code>cd sample</code><br>
+            <code>touch index.html</code><br>
+            <code>git init</code><br>
+            <code>git status</code><br>
+            <code>git add .&emsp;</code> <i> or &emsp;</i>  <code>git add -A</code><br>
+            <code>git commit -m "initial commit"</code><br>
+          </p>
+      </section>
+
+      <section>
+        <h3>4. Connect local to remote repository</h3>
+        <p>
+          Now we are ready to connect the local repository to a remote repository on GitHub!<br>
+
+          To create a remote repository to store the code, navigate to <a href="https://github.com/">GitHub</a> and create a new repository by clicking on the green New button at the top left and entering the project name, `sample`.<br><br>
+
+          <b>Important</b>: Because we are importing an existing repository, make that sure none of the options are checked!<br><br>
+
+          Click the "Create Repository" button. Then copy the code under the header "…or push an existing repository from the command line". It should look like the following example:
+        </p>
+
+        <p>
+          <code>git remote add origin 'the HTTPS or SSH URL ending in .git'</code><br>
+          <code>git branch -M main</code><br>
+          <code>git push -u origin main</code>
+        </p>
+
+        <p>
+          If successful, you should see a message that looks like the following image:<br>
+
+          ![A message indicates that the project directory has been successfully imported.]
+        </p><br>
+
+        <details>
+          <summary>Deep Dive</summary>
+          <p>
+            If repository already exists, then check it and remove it<br>
+            <code>git remote -v</code><br>
+            <code>git remote rm origin</code><br>
+            Create a new remote origin as mentioned above and push it.
+          </p>
+        </details>
+      </section>
+
+      <section>
+        <h3>5. Pull Changes from the Remote Repository</h3>
+        <p>
+          Before each class, it is important that we do a `git pull` to pull down any changes and activity files from the student repository to the local machine. Let's review how to do just that.<br>
+
+          To perform a `git pull`, first navigate to the corresponding project directory, which in this case will be `sample`:<br>
+          
+          <code>cd sample</code><br>
+          <code>git pull origin main</code>
+        </p>
+      </section>
+
+      <section>
+        <p>
+          for more information:<br>
+          <a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository">Setting Up a Repo</a><br>
+          <a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-config">Learn to Git Pull</a>
+      </p>
+      </section>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <h2>❤️ Made with love by PannaCollege.</h2>
+      <div><a href="#about">About</a></div>
+      <div><a href="#contact">Contact</a></div>
+      <div>
+        <a href="./privacy-policy.html">Read Our Privacy Policy</a><br/>
+        &copy; 2024 PannaCollege, Inc.
+      </div>
+    </footer>
+    <!-- footer end -->
+  </body>
+</html>
